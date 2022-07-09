@@ -1,4 +1,4 @@
-# Kubernetes-Cluster-mongodb-mongoExpress
+# Kubernetes-Cluster/mongodb-mongoExpress/Docker-images
 
 
 ### kubectl apply commands in order
