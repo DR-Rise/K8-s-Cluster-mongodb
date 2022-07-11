@@ -28,6 +28,8 @@
 
     minikube service mongo-express-service
 
-### Cluster-DashBoard
+### Cluster-DashBoard command
+
+    minikube dashboard
 
 ![image](https://user-images.githubusercontent.com/66872323/178170616-c98be734-ed2f-4811-8ac4-a9858846b1b0.png)
