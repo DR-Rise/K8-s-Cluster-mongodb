@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                git branch: "main", url: 'https://github.com/DR-Rise/K8-s-Cluster-mongodb.git'
+                git log -n 1 --pretty=format:'%ae'
                 sh ' env | sort'
                 sh 'echo "next line will fail the pipeline"'
                 sh 'unkown-command'
