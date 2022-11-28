@@ -1,7 +1,6 @@
 # Kubernetes-Cluster/mongodb-mongoExpress/Docker-images
 ![image](https://user-images.githubusercontent.com/66872323/178170443-19d86673-7d1c-415b-9ccf-22dd16c9033d.png)
 
-
 ### kubectl apply commands in order
     
     kubectl apply -f mongo-secret.yaml
@@ -33,3 +32,4 @@
     minikube dashboard
 
 ![image](https://user-images.githubusercontent.com/66872323/178170616-c98be734-ed2f-4811-8ac4-a9858846b1b0.png)
+ed
