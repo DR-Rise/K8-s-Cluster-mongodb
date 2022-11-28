@@ -4,6 +4,8 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
+                foo=$(git show -s --pretty=%ae)
+                sh 'echo "${foo}"
                 sh ' env | sort'
                 sh 'echo "next line will fail the pipeline"'
                 sh 'unkown-command'
