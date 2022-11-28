@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                git branch: "main", url: 'https://github.com/DR-Rise/K8-s-Cluster-mongodb.git'
+                sh ' env | sort'
+                sh 'echo "next line will fail the pipeline"'
+                sh 'unkown-command'
+            }
+        }
+    }
+    
+     post {
+        failure {
+            emailext (body: '''Hi,
+
+$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+Check console output at $BUILD_URL to view the results.
+
+Please use "Dev-team" as username/password on Jenkins !
+
+Note - Please do not reply to this email.
+
+Thanks,
+DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'null')
+          
+        }
+    }
+}
+
+
