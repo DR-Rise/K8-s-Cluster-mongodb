@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                git log -n 1 --pretty=format:'%ae'
                 sh ' env | sort'
                 sh 'echo "next line will fail the pipeline"'
                 sh 'unkown-command'
@@ -31,4 +30,8 @@ DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS
     }
 }
 
+env.GIT_COMMITTER_EMAIL = sh(
+   script: "git --no-pager show -s --format='%ae'",
+   returnStdout: true
+).trim()
 
