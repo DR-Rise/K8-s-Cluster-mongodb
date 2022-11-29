@@ -1,13 +1,15 @@
 pipeline {
     agent any
     environment {
-       GIT_NAME = ""                             
+       //GIT_NAME = ""                             
    }
     stages {
         stage('Hello') {
             steps {
                 sh ' env | sort'
-                sh ''' env.GIT_NAME=$(git --no-pager show -s --format="%an" $GIT_COMMIT)'''
+                sh ''' GIT_NAME=$(git --no-pager show -s --format="%an" $GIT_COMMIT)'''
+                echo "GIT_NAME=\"$GIT_NAME\"" > $WORKSPACE/envvars
+                sh ' env | sort'
                 sh 'echo "next stage will fail the pipeline"'
             }
         }
