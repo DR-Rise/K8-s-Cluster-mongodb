@@ -1,10 +1,6 @@
 pipeline {
     agent any
     
-    environment{
-    GIT_NAME = ""
-    }
-
     stages {
         stage('Hello') {
             steps {
@@ -20,9 +16,10 @@ pipeline {
     
      post {
         failure {
+            sh ' GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)'
             emailext (body: '''Hi,
 
-$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # $GIT_NAME - $BUILD_STATUS:
+$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${GIT_NAME} - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.
 
@@ -37,8 +34,4 @@ DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS
     }
 }
 
-env.GIT_COMMITTER_EMAIL = sh(
-   script: "git --no-pager show -s --format='%ae'",
-   returnStdout: true
-).trim()
 
