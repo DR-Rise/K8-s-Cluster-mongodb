@@ -1,19 +1,19 @@
 pipeline {
     agent any
     environment {
-       GIT_NAME = ''                               
+       GIT_NAME = ""                              
    }
     stages {
         stage('Hello') {
             steps {
                 sh ' env | sort'
-                sh ''' GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)'''
+                sh ''' env.GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)'''
                 sh 'echo "next stage will fail the pipeline"'
             }
         }
         stage('check') {
             steps {
-                sh ' echo "Commiter = ${env.GIT_NAME}"'
+                sh " echo "Commiter = ${env.GIT_NAME}""
                 sh 'unkown-command'
             }
         }
