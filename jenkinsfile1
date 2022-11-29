@@ -1,10 +1,14 @@
 pipeline {
     agent any
+    
+    envirement{
+    GIT_NAME = ""
+    }
 
     stages {
         stage('Hello') {
             steps {
-                sh ''' GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
+                sh ''' env.GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
                        GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
                    '''
                 sh ' env | sort'
@@ -18,7 +22,7 @@ pipeline {
         failure {
             emailext (body: '''Hi,
 
-$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${env.GIT_NAME} - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.
 
@@ -27,7 +31,7 @@ Please use "Dev-team" as username/password on Jenkins !
 Note - Please do not reply to this email.
 
 Thanks,
-DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'null')
+DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'driss@abxrstudio.com')
           
         }
     }
