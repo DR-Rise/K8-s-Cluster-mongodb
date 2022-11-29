@@ -1,15 +1,13 @@
 pipeline {
     agent any
     environment{
-                GIT_NAME = sh(script: "git --no-pager show -s --format='%an'",returnStdout: true).trim()
-                GIT_COMMITER_NAME = "DrissALAOUI"
+                GIT_COMMITER_NAME = sh(script: "git --no-pager show -s --format='%an'",returnStdout: true).trim()
     }
 
     stages {
         stage('Hello') {
             steps { 
                 sh ' env | sort'
-                sh 'echo "next line will fail the pipeline # ${GIT_NAME}"'
                 sh 'unkown-command'
             }
         }
@@ -17,11 +15,10 @@ pipeline {
     
      post {
         failure {
-            sh ' env | sort'
-            writeFile file: 'env.properties', text: "GIT_NAME=${GIT_NAME}"
+            writeFile file: 'env.properties', text: "GIT_COMMITER_NAME=${GIT_COMMITER_NAME}"
             emailext (body: '''"Hi,
 
-$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${PROPFILE,file="env.properties",property="GIT_NAME"} - $BUILD_STATUS:
+$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${PROPFILE,file="env.properties",property="GIT_COMMITER_NAME"} - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.
 
