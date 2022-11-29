@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    environment {
-       //GIT_NAME = ""                             
-   }
+
     stages {
         stage('Hello') {
             steps {
