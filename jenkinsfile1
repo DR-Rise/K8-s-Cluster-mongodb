@@ -4,8 +4,9 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                foo=$(git show -s --pretty=%ae)
-                sh 'echo "${foo}"
+                sh ''' GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
+                       GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
+                   '''
                 sh ' env | sort'
                 sh 'echo "next line will fail the pipeline"'
                 sh 'unkown-command'
