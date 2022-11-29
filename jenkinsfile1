@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                sh ' env.GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)'
+                sh ' GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)'
                 sh ' env | sort'
                 sh 'echo "next stage will fail the pipeline"'
             }
