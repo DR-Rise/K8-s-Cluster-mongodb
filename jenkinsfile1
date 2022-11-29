@@ -1,27 +1,14 @@
 pipeline {
     agent any
     environment{
-                GIT_COMMITTER_EMAIL = sh(script: "git --no-pager show -s --format='%an'",returnStdout: true).trim()
+                GIT_COMMITTER_NAME = sh(script: "git --no-pager show -s --format='%an'",returnStdout: true).trim()
     }
 
     stages {
         stage('Hello') {
-            steps {
+            steps { 
                 sh ' env | sort'
-                sh ''' GIT_NAME=$(git --no-pager show -s --format="%an" $GIT_COMMIT)
-                        echo "GIT_NAME=\"$GIT_NAME\"" > $WORKSPACE/envvars '''  
-                sh ' env | sort'
-                sh 'echo "next stage will fail the pipeline"'
-            }
-        }
-        stage('check') {
-            steps {
-                sh '. $WORKSPACE/envvars'
-                sh '''
-                        
-                        echo "Commiter = ${GIT_NAME}"
-                '''
-                
+                sh 'echo "next line will fail the pipeline"'
                 sh 'unkown-command'
             }
         }
@@ -31,7 +18,7 @@ pipeline {
         failure {
             emailext (body: '''Hi,
 
-$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${GIT_NAME} - $BUILD_STATUS:
+$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # $GIT_COMMITTER_NAME - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.
 
@@ -40,7 +27,7 @@ Please use "Dev-team" as username/password on Jenkins !
 Note - Please do not reply to this email.
 
 Thanks,
-DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'null')
+DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'driss@abxrstudio.com')
           
         }
     }
