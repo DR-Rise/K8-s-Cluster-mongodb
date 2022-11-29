@@ -17,9 +17,9 @@ pipeline {
      post {
         failure {
             sh ' env | sort'
-            emailext (body: '''Hi,
+            emailext (body: '''"Hi,
 
-$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${GIT_COMMITTER_NAME} - $BUILD_STATUS:
+$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # $GIT_COMMITTER_NAME - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.
 
@@ -28,7 +28,7 @@ Please use "Dev-team" as username/password on Jenkins !
 Note - Please do not reply to this email.
 
 Thanks,
-DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'null')
+DevOps Team."''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'null')
           
         }
     }
