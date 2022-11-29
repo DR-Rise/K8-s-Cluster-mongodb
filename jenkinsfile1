@@ -13,8 +13,9 @@ pipeline {
         }
         stage('check') {
             steps {
+                sh '. $WORKSPACE/envvars'
                 sh '''
-                        . $WORKSPACE/envvars
+                        
                         echo "Commiter = ${GIT_NAME}"
                 '''
                 
