@@ -13,7 +13,11 @@ pipeline {
         }
         stage('check') {
             steps {
-                echo "Commiter = ${env.GIT_NAME}"
+                sh '''
+                        . $WORKSPACE/envvars
+                        echo "Commiter = ${GIT_NAME}"
+                '''
+                
                 sh 'unkown-command'
             }
         }
