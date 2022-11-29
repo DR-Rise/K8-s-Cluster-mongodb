@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-       GIT_NAME = ""                              
+       GIT_NAME = ''                              
    }
     stages {
         stage('Hello') {
@@ -13,7 +13,7 @@ pipeline {
         }
         stage('check') {
             steps {
-                sh " echo "Commiter = ${env.GIT_NAME}""
+                sh " echo 'Commiter = ${env.GIT_NAME}'"
                 sh 'unkown-command'
             }
         }
