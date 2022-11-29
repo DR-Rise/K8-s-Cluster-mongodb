@@ -22,7 +22,7 @@ pipeline {
         failure {
             emailext (body: '''Hi,
 
-$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${env.GIT_NAME} - $BUILD_STATUS:
+$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # $GIT_NAME - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.
 
