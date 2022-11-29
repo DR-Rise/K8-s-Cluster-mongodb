@@ -1,14 +1,19 @@
 pipeline {
     agent any
-    
+    environment {
+       GIT_NAME = ''                               
+   }
     stages {
         stage('Hello') {
             steps {
-                sh ''' GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
-                       GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
-                   '''
+                sh ' env.GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)'
                 sh ' env | sort'
-                sh 'echo "next line will fail the pipeline"'
+                sh 'echo "next stage will fail the pipeline"'
+            }
+        }
+        stage('check') {
+            steps {
+                sh ' echo "Commiter = ${env.GIT_NAME}"'
                 sh 'unkown-command'
             }
         }
@@ -30,7 +35,7 @@ Please use "Dev-team" as username/password on Jenkins !
 Note - Please do not reply to this email.
 
 Thanks,
-DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'driss@abxrstudio.com')
+DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'null')
           
         }
     }
