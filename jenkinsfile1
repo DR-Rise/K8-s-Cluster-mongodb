@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment{
                 GIT_NAME = sh(script: "git --no-pager show -s --format='%an'",returnStdout: true).trim()
+                GIT_COMMITER_NAME = "DrissALAOUI"
     }
 
     stages {
@@ -19,7 +20,7 @@ pipeline {
             sh ' env | sort'
             emailext (body: '''"Hi,
 
-$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # $GIT_NAME - $BUILD_STATUS:
+$PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # $GIT_COMMITER_NAME - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.
 
