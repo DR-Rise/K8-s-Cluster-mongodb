@@ -8,7 +8,7 @@ pipeline {
         stage('Hello') {
             steps { 
                 sh ' env | sort'
-                sh 'echo "next line will fail the pipeline # ${GIT_COMMITTER_NAME}"'
+                sh 'echo "next line will fail the pipeline # $GIT_COMMITTER_NAME"'
                 sh 'unkown-command'
             }
         }
@@ -16,6 +16,7 @@ pipeline {
     
      post {
         failure {
+            sh ' env | sort'
             emailext (body: '''Hi,
 
 $PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${GIT_COMMITTER_NAME} - $BUILD_STATUS:
@@ -27,7 +28,7 @@ Please use "Dev-team" as username/password on Jenkins !
 Note - Please do not reply to this email.
 
 Thanks,
-DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'driss@abxrstudio.com')
+DevOps Team.''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'null')
           
         }
     }
