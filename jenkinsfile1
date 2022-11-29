@@ -21,9 +21,6 @@ pipeline {
     
      post {
         failure {
-            steps{
-            sh ' GIT_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)'
-            }
             emailext (body: '''Hi,
 
 $PROJECT_NAME - Build # $BUILD_NUMBER - COMMITER # ${GIT_NAME} - $BUILD_STATUS:
